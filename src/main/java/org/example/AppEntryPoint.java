@@ -1,7 +1,7 @@
 package org.example;
 
-/
-public class App 
+
+public class AppEntryPoint
 {
     public static void main( String[] args )
     {
