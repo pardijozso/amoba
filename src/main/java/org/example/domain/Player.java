@@ -1,19 +1,8 @@
 package org.example.domain;
 
-public class Player {
-    private final String name;
-    private  final char symbol;
+public interface Player {
 
-    public String getName() {
-        return name;
-    }
+    char getSymbol();
 
-    public char getSymbol() {
-        return symbol;
-    }
-
-    public Player(String name, char symbol) {
-        this.name = name;
-        this.symbol=symbol;
-    }
+    void makeMove(Board board, Move move);
 }
