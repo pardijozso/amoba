@@ -1,5 +1,7 @@
 package org.example.init;
 
-public class BoardInit {
-    // bekéri az adatokat, létre hoz egy boadtot, lesz egy föggvénye ami vissza adja ezt a boardot
+import org.example.domain.Board;
+
+public interface BoardInit {
+    public Board readBoardDetails();
 }

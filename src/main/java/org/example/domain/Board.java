@@ -8,7 +8,6 @@ public class Board {
     public Board(int rows, int cols) {
         this.row=rows;
         this.col=cols;
-        // ezt a részt majd consolmapinitbe kell kitenni
         grid = new char[rows][cols];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {

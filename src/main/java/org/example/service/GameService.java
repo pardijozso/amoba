@@ -27,7 +27,7 @@ public class GameService {
         final Board board= game.getBoard();
         while (!gameOver) {
             try {
-                Move playerMove = SteppingService.getMoveDetails();
+                Move playerMove = SteppingService.getMoveDetails(board);
                 board.placeSymbol(playerMove.getRow(), playerMove.getCol(), player.getSymbol());
             } catch (IllegalStateException e) {
                     System.out.println(e.getMessage());
@@ -36,7 +36,7 @@ public class GameService {
             checkGameOver(game, player.getSymbol());
             if (gameOver) continue;
 
-            Move botMove = SteppingService.calculateBotMove(game.getBoard());
+            Move botMove = SteppingService.calculateBotMove(board);
             board.placeSymbol(botMove.getRow(), botMove.getCol(), bot.getSymbol());
             checkGameOver(game, bot.getSymbol());
         }
