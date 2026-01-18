@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.init.BoardInit;
 import org.example.init.ConsoleBoardInit;
+import org.example.init.FileBoardInit;
 
 public class BoardInitDeciderService {
     private final ConsoleService consoleService;
@@ -15,7 +16,7 @@ public class BoardInitDeciderService {
 
         return switch (option) {
             case 1 -> new ConsoleBoardInit(consoleService);
-            //case 2 -> new FileMapInit();
+            case 2 -> new FileBoardInit(consoleService);
             default -> new ConsoleBoardInit(consoleService);
         };
     }

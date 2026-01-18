@@ -9,12 +9,6 @@ public class Board {
         this.row=rows;
         this.col=cols;
         grid = new char[rows][cols];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j] = '~';
-            }
-        }
-        grid[rows/2][cols/2]='X';
     }
 
     public boolean isBoardFull() {
@@ -29,13 +23,11 @@ public class Board {
     }
 
     public void placeSymbol(int row, int col, char symbol) {
-        if (row < 1 || row > this.row || col < 1 || col > this.col) {
-            throw new IllegalStateException("Hely kívül esik a pályán!");
-        }
-        if (grid[row-1][col-1] != '~') {
-            throw new IllegalStateException("Ez a mező már foglalt!");
-        }
-        grid[row-1][col-1] = symbol;
+        grid[row][col] = symbol;
+    }
+
+    public void setCell(int row, int col, char symbol) {
+        grid[row][col] = symbol;
     }
 
     public int getRow() {

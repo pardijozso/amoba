@@ -10,11 +10,8 @@ import org.slf4j.LoggerFactory;
 
 public class SteppingService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SteppingService.class);
-
     private final ConsoleService consoleService;
     private final Random random = new Random();
-    private boolean isCorrectMove=false;
 
     public SteppingService(final ConsoleService consoleService) {
         this.consoleService = consoleService;
@@ -36,7 +33,8 @@ public class SteppingService {
                         "Add meg az oszlopot (A-" + (char) ('A' + board.getCol() - 1) + ") vagy ESC a kilépéshez:");
 
                 if (colInput.equalsIgnoreCase("ESC")) {
-                    logger.info("Kilépés a játékból...");
+                    consoleService.print("Kilépés a játékból...");
+                    // mentés fileba
                     System.exit(0);
                 }
 
@@ -47,7 +45,7 @@ public class SteppingService {
                         "Add meg a sort (1-" + board.getRow() + ") vagy ESC a kilépéshez:");
 
                 if (rowInputStr.equalsIgnoreCase("ESC")) {
-                    logger.info("Kilépés a játékból...");
+                    consoleService.print("Kilépés a játékból...");
                     System.exit(0);
                 }
 
@@ -55,17 +53,21 @@ public class SteppingService {
 
                 // Sor validáció
                 if (rowIndex < 0 || rowIndex >= board.getRow()) {
-                    logger.warn("Érvénytelen sor! 1 és " + board.getRow() + " között kell lennie.");
+                    consoleService.print("Érvénytelen sor! 1 és " + board.getRow() + " között kell lennie.");
                     continue; // vissza a ciklus elejére
                 }
 
+                if (board.getCell(rowIndex,colIndex) != '~'){
+                    throw new IllegalArgumentException("Ez a mező foglalt");
+
+                }
                 // Ha minden ok, állítsuk a flag-et
                 valid = true;
 
             } catch (NumberFormatException e) {
-                logger.warn("Érvénytelen szám! Próbáld újra.");
+                consoleService.print("Érvénytelen szám! Próbáld újra.");
             } catch (IllegalArgumentException e) {
-                logger.warn(e.getMessage());
+                consoleService.print(e.getMessage());
             }
         }
 
@@ -85,7 +87,7 @@ public class SteppingService {
             col = random.nextInt(maxCol);  // 0-index
 
             if (board.getCell(row, col) == '~') {
-                logger.info("Bot lépése: {}{}", (char)('A' + col), row + 1);
+                consoleService.print("Bot lépése: " + (char)('A' + col) + (row + 1));
                 return new Move(row, col);
             }
         }

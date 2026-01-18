@@ -1,11 +1,17 @@
 package org.example.Display;
 
 import org.example.domain.Board;
+import org.example.service.ConsoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BoardDisplayer {
-    private static final Logger logger = LoggerFactory.getLogger(BoardDisplayer.class);
+    final ConsoleService consoleService;
+
+    public BoardDisplayer(ConsoleService consoleService) {
+        this.consoleService = consoleService;
+    }
+
 
     public void display(Board board) {
         int rows = board.getRow();
@@ -35,6 +41,6 @@ public class BoardDisplayer {
         }
 
         // Loggerrel kiírás
-        logger.info("\n{}", sb.toString());
+        consoleService.print("\n" + sb.toString());
     }
 }
