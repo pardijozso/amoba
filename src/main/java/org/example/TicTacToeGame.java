@@ -2,6 +2,7 @@ package org.example;
 
 
 import org.example.Display.BoardDisplayer;
+import org.example.Display.DisplayTheWinner;
 import org.example.domain.Board;
 import org.example.domain.BotPlayer;
 import org.example.domain.Game;
@@ -19,11 +20,11 @@ public class TicTacToeGame {
         final BoardInitDeciderService BoardDecider = new BoardInitDeciderService(consoleService);
         final BoardInit boardInit = BoardDecider.getMapInitInstance();
         final PlayerInit playerInit = new PlayerInit(consoleService);
-
         final Board board = boardInit.readBoardDetails();
         final HumanPlayer player = playerInit.readHumanPlayer();
         final BotPlayer bot = playerInit.prepareBotPlayer();
         final BoardDisplayer displayer = new BoardDisplayer(consoleService);
+        final DisplayTheWinner displayTheWinner = new DisplayTheWinner(consoleService);
         final SteppingService steppingService = new SteppingService(consoleService);
         final GameStateCheckingService gameStateCheck = new GameStateCheckingService(board);
         final GameService gameService = new GameService(steppingService,gameStateCheck,displayer);
@@ -34,13 +35,7 @@ public class TicTacToeGame {
         } else if (boardInit.getBoardInitType() == 2) {
             gameService.startGameFromFile(game);
         }
-        if(game.getWinner()=='X'){
-            consoleService.print("Gratulálok nyertél!");
-        }else if(game.getWinner()=='O'){
-            consoleService.print("Sajnos vesztettél!");
-        }else{
-            consoleService.print("Döntetlen!");
-        }
+        displayTheWinner.print(game.getWinner());
         scanner.close();
     }
 }

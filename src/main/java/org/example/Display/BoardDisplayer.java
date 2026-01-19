@@ -19,28 +19,26 @@ public class BoardDisplayer {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("   "); // bal üres hely a sor sorszámának
+        sb.append("   "); // üres hely a sor sorszámának
         for (int c = 0; c < cols; c++) {
             sb.append((char) ('A' + c)).append(" ");
         }
         sb.append("\n");
 
-        // Sorok
         for (int r = 0; r < rows; r++) {
-            // Sor szám kiírása 1-től
             sb.append(r + 1);
+            sb.append(r + 1 < 10 ? "  " : " "); // Szép igazítás, ha 1 számjegyű a sor
 
-            // Szép igazítás, ha 1 számjegyű a sor
-            sb.append(r + 1 < 10 ? "  " : " ");
-
-            // A sor celláinak kiírása
             for (int c = 0; c < cols; c++) {
                 sb.append(board.getCell(r, c)).append(" ");
             }
             sb.append("\n");
         }
-
-        // Loggerrel kiírás
         consoleService.print("\n" + sb.toString());
-    }
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            // a szál megszakítását visszaállítjuk
+            Thread.currentThread().interrupt();
+        }    }
 }

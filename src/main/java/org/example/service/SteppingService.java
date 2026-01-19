@@ -12,6 +12,7 @@ public class SteppingService {
 
     private final ConsoleService consoleService;
     private final Random random = new Random();
+    private final GameSaverService saver = new GameSaverService();
 
     public SteppingService(final ConsoleService consoleService) {
         this.consoleService = consoleService;
@@ -33,7 +34,7 @@ public class SteppingService {
 
                 if (colInput.equalsIgnoreCase("ESC")) {
                     consoleService.print("Kilépés a játékból...");
-                    // mentés fileba
+                    saver.saveToFile(board);
                     System.exit(0);
                 }
 
@@ -43,15 +44,15 @@ public class SteppingService {
 
                 if (rowInputStr.equalsIgnoreCase("ESC")) {
                     consoleService.print("Kilépés a játékból...");
+                    saver.saveToFile(board);
                     System.exit(0);
                 }
 
                 rowIndex = Integer.parseInt(rowInputStr) - 1;
 
-                // Sor validáció
                 if (rowIndex < 0 || rowIndex >= board.getRow()) {
                     consoleService.print("Érvénytelen sor! 1 és " + board.getRow() + " között kell lennie.");
-                    continue; // vissza a ciklus elejére
+                    continue;
                 }
 
                 if (board.getCell(rowIndex,colIndex) != '~'){
@@ -80,8 +81,8 @@ public class SteppingService {
         int maxCol = board.getCol();
 
         while (true) {
-            row = random.nextInt(maxRow);  // 0-index
-            col = random.nextInt(maxCol);  // 0-index
+            row = random.nextInt(maxRow);
+            col = random.nextInt(maxCol);
 
             if (board.getCell(row, col) == '~' && board.isValidMove(row,col)) {
                 consoleService.print("Bot lépése: " + (char)('A' + col) + (row + 1));

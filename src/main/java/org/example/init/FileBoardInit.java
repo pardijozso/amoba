@@ -24,9 +24,10 @@ public class FileBoardInit implements BoardInit {
     }
 
     @Override
-    public Board readBoardDetails() { // paraméter nélküli
+    public Board readBoardDetails() {
+        Path path = Path.of(FILE_NAME);
         try {
-            List<String> lines = Files.readAllLines(Path.of(ClassLoader.getSystemResource(FILE_NAME).toURI()));
+            List<String> lines = Files.readAllLines(path);
 
             if (lines.isEmpty()) {
                 consoleService.print("Nincs mentett játék.");
@@ -48,7 +49,7 @@ public class FileBoardInit implements BoardInit {
             consoleService.print("Játék sikeresen betöltve.");
             return board;
 
-        } catch (IOException | NullPointerException | java.net.URISyntaxException e) {
+        } catch (IOException | NullPointerException e) {
             consoleService.print("Nem sikerült beolvasni a fájlt: " + FILE_NAME);
             return null;
         }
