@@ -11,7 +11,7 @@ public class GameStateCheckingService {
     }
 
     private boolean hasFourFrom(int row, int col, int rowDir, int colDir, char symbol) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             int r = row + i * rowDir;
             int c = col + i * colDir;
 

@@ -22,6 +22,29 @@ public class Board {
         return true;
     }
 
+    public boolean isValidMove(int row, int col){
+        for (int rowDiff = -1; rowDiff <= 1; rowDiff++) {
+            for (int colDiff = -1; colDiff <= 1; colDiff++) {
+
+                if (rowDiff == 0 && colDiff == 0) {
+                    continue;
+                }
+
+                int neighborRow = row + rowDiff;
+                int neighborCol = col + colDiff;
+
+                if (neighborRow >= 0 && neighborRow < this.row &&
+                        neighborCol >= 0 && neighborCol < this.col) {
+
+                    if (grid[neighborRow][neighborCol] != '~') {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public void placeSymbol(int row, int col, char symbol) {
         grid[row][col] = symbol;
     }

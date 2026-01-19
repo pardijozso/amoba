@@ -26,9 +26,8 @@ public class SteppingService {
 
         boolean valid = false;
 
-        while (!valid) { // normál feltétel, nem while(true)
+        while (!valid) {
             try {
-                // --- OSZLOP BEKÉRÉSE ---
                 String colInput = consoleService.readStringFromConsole(
                         "Add meg az oszlopot (A-" + (char) ('A' + board.getCol() - 1) + ") vagy ESC a kilépéshez:");
 
@@ -39,8 +38,6 @@ public class SteppingService {
                 }
 
                 colIndex = columnLetterToIndex(colInput, board.getCol());
-
-                // --- SOR BEKÉRÉSE ---
                 String rowInputStr = consoleService.readStringFromConsole(
                         "Add meg a sort (1-" + board.getRow() + ") vagy ESC a kilépéshez:");
 
@@ -59,14 +56,17 @@ public class SteppingService {
 
                 if (board.getCell(rowIndex,colIndex) != '~'){
                     throw new IllegalArgumentException("Ez a mező foglalt");
-
                 }
-                // Ha minden ok, állítsuk a flag-et
+
+                if(!board.isValidMove(rowIndex,colIndex)){
+                    throw new IllegalStateException("Érvénytelen lépés!");
+                }
+
                 valid = true;
 
             } catch (NumberFormatException e) {
                 consoleService.print("Érvénytelen szám! Próbáld újra.");
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | IllegalStateException e) {
                 consoleService.print(e.getMessage());
             }
         }
@@ -74,9 +74,6 @@ public class SteppingService {
         return new Move(rowIndex, colIndex);
     }
 
-    /**
-     * Random bot lépés
-     */
     public Move calculateBotMove(Board board) {
         int row, col;
         int maxRow = board.getRow();
@@ -86,7 +83,7 @@ public class SteppingService {
             row = random.nextInt(maxRow);  // 0-index
             col = random.nextInt(maxCol);  // 0-index
 
-            if (board.getCell(row, col) == '~') {
+            if (board.getCell(row, col) == '~' && board.isValidMove(row,col)) {
                 consoleService.print("Bot lépése: " + (char)('A' + col) + (row + 1));
                 return new Move(row, col);
             }

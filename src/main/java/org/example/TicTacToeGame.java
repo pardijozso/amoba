@@ -27,11 +27,19 @@ public class TicTacToeGame {
         final SteppingService steppingService = new SteppingService(consoleService);
         final GameStateCheckingService gameStateCheck = new GameStateCheckingService(board);
         final GameService gameService = new GameService(steppingService,gameStateCheck,displayer);
+        final Game game = new Game(board, player, bot);
 
         if(boardInit.getBoardInitType() == 1){
-            gameService.startNewGame(new Game(board, player, bot));
+            gameService.startNewGame(game);
         } else if (boardInit.getBoardInitType() == 2) {
-            gameService.startGameFromFile(new Game(board, player, bot));
+            gameService.startGameFromFile(game);
+        }
+        if(game.getWinner()=='X'){
+            consoleService.print("Gratulálok nyertél!");
+        }else if(game.getWinner()=='O'){
+            consoleService.print("Sajnos vesztettél!");
+        }else{
+            consoleService.print("Döntetlen!");
         }
         scanner.close();
     }
