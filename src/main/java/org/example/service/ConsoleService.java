@@ -1,5 +1,6 @@
 package org.example.service;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -13,14 +14,24 @@ public class ConsoleService {
         this.scanner = scanner;
     }
 
-    public int readIntFromConsole(final String message) {
-        LOGGER.info(message);
-        return scanner.nextInt();
-    }
+    public int readIntFromConsole(String message) {
+        int value = 0;
+        boolean valid = false;
 
-    public boolean readBooleanFromConsole(final String message) {
-        LOGGER.info(message);
-        return scanner.nextBoolean();
+        while (!valid) {
+            try {
+                print(message);
+                value = scanner.nextInt();
+                valid = true;
+            } catch (InputMismatchException e) {
+                print("Érvénytelen bevitel! Csak számot adjon meg.");
+                if (scanner.hasNextLine()) {
+                    scanner.nextLine();
+                }
+            }
+        }
+
+        return value;
     }
 
     public String readStringFromConsole(final String message) {

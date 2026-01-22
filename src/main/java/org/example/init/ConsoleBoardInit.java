@@ -17,8 +17,26 @@ public class ConsoleBoardInit implements BoardInit{
 
     @Override
     public Board readBoardDetails() {
-        final int row=consoleService.readIntFromConsole("Please provide how many rows you want for a map (4-25): ");
-        final int col=consoleService.readIntFromConsole("Please provide how many coulms you want for a map (4-25): ");
+        int row = 0;
+        int col = 0;
+        boolean valid = false;
+
+        while (!valid) {
+            try {
+                row = consoleService.readIntFromConsole("Add meg a pálya sorainak számát (4-25): ");
+                col = consoleService.readIntFromConsole("Add meg a pálya oszlopainak számát (4-25): ");
+
+                if (row < 4 || row > 25 || col < 4 || col > 25) {
+                    throw new IllegalArgumentException("A soroknak és oszlopoknak 4-25 között kell lennie!");
+                }
+
+                valid = true;
+
+            } catch (IllegalArgumentException e) {
+                consoleService.print(e.getMessage());
+            }
+        }
+
         Board board= new Board(row,col);
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {

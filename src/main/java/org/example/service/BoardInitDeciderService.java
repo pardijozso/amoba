@@ -12,12 +12,28 @@ public class BoardInitDeciderService {
     }
 
     public BoardInit getMapInitInstance() {
-        final int option = consoleService.readIntFromConsole("Please provide number '1' for manual setup or '2' for loading from a file.");
+        int option = 0;
+        boolean valid = false;
+
+        while (!valid) {
+            try {
+                option = consoleService.readIntFromConsole(
+                        "Manuális pálya létrehozás (1), mentett játék betöltése (2): ");
+
+                if (option != 1 && option != 2) {
+                    throw new IllegalArgumentException("Csak 1 vagy 2 választható!");
+                }
+
+                valid = true;
+            } catch (IllegalArgumentException e) {
+                consoleService.print(e.getMessage());
+            }
+        }
 
         return switch (option) {
             case 1 -> new ConsoleBoardInit(consoleService);
             case 2 -> new FileBoardInit(consoleService);
-            default -> new ConsoleBoardInit(consoleService);
+            default -> throw new IllegalStateException();
         };
     }
 }
