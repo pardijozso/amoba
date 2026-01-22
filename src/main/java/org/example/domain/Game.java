@@ -4,7 +4,7 @@ public class Game {
     private final Board board;
     private final HumanPlayer humanPlayer;
     private final BotPlayer bot;
-    private char winner='D';
+    private char winner = 'D';
 
 
     public Game(Board board, HumanPlayer humanPlayer, BotPlayer bot) {

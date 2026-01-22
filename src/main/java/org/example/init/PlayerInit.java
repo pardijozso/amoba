@@ -15,7 +15,7 @@ public class PlayerInit {
         return new HumanPlayer(consoleService.readStringFromConsole("Please provide your name: "));
     }
 
-    public BotPlayer prepareBotPlayer(){
+    public BotPlayer prepareBotPlayer() {
         return new BotPlayer();
     }
 }

@@ -3,13 +3,14 @@ package org.example.init;
 import org.example.domain.Board;
 import org.example.service.ConsoleService;
 
-public class ConsoleBoardInit implements BoardInit{
-    private final int boardInitType =1;
+public class ConsoleBoardInit implements BoardInit {
+    private final int boardInitType = 1;
     private final ConsoleService consoleService;
 
     public ConsoleBoardInit(final ConsoleService consoleService) {
         this.consoleService = consoleService;
     }
+
     @Override
     public int getBoardInitType() {
         return boardInitType;
@@ -37,13 +38,14 @@ public class ConsoleBoardInit implements BoardInit{
             }
         }
 
-        Board board= new Board(row,col);
+        Board board = new Board(row, col);
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
-                    board.setCell(i,j,'~');
+                    board.setCell(i, j, '~');
                 }
             }
-        board.placeSymbol((row-1)/2,(col-1)/2,'X');
+
+        board.placeSymbol((row - 1) / 2, (col - 1) / 2, 'X');
         return board;
     }
 }

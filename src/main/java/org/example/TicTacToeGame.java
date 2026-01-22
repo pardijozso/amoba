@@ -1,26 +1,31 @@
 package org.example;
 
+import java.util.Scanner;
 
-import org.example.Display.BoardDisplayer;
-import org.example.Display.DisplayTheWinner;
 import org.example.database.DatabaseManager;
+import org.example.display.BoardDisplayer;
+import org.example.display.DisplayTheWinner;
 import org.example.domain.Board;
 import org.example.domain.BotPlayer;
 import org.example.domain.Game;
 import org.example.domain.HumanPlayer;
 import org.example.init.BoardInit;
 import org.example.init.PlayerInit;
-import org.example.service.*;
+import org.example.service.BoardInitDeciderService;
+import org.example.service.ConsoleService;
+import org.example.service.GameService;
+import org.example.service.GameStateCheckingService;
+import org.example.service.HighScoreService;
+import org.example.service.SteppingService;
 
-import java.util.Scanner;
 
 public class TicTacToeGame {
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         DatabaseManager.initDatabase();
         final Scanner scanner = new Scanner(System.in);
         final ConsoleService consoleService = new ConsoleService(scanner);
         final BoardInitDeciderService BoardDecider = new BoardInitDeciderService(consoleService);
-        final HighScoreService highScoreService= new HighScoreService(consoleService);
+        final HighScoreService highScoreService = new HighScoreService(consoleService);
         final BoardInit boardInit = BoardDecider.getMapInitInstance();
         final PlayerInit playerInit = new PlayerInit(consoleService);
         final Board board = boardInit.readBoardDetails();
@@ -30,10 +35,10 @@ public class TicTacToeGame {
         final DisplayTheWinner displayTheWinner = new DisplayTheWinner(consoleService);
         final SteppingService steppingService = new SteppingService(consoleService);
         final GameStateCheckingService gameStateCheck = new GameStateCheckingService(board);
-        final GameService gameService = new GameService(steppingService,gameStateCheck,displayer,highScoreService);
+        final GameService gameService = new GameService(steppingService, gameStateCheck, displayer, highScoreService);
         final Game game = new Game(board, player, bot);
 
-        if(boardInit.getBoardInitType() == 1){
+        if (boardInit.getBoardInitType() == 1) {
             gameService.startNewGame(game);
         } else if (boardInit.getBoardInitType() == 2) {
             gameService.startGameFromFile(game);

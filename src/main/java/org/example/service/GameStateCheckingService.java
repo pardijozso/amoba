@@ -28,12 +28,22 @@ public class GameStateCheckingService {
         for (int row = 0; row < board.getRow(); row++) {
             for (int col = 0; col < board.getCol(); col++) {
 
-                if (board.getCell(row, col) != symbol) continue;
+                if (board.getCell(row, col) != symbol) {
+                    continue;
+                }
 
-                if (hasFourFrom(row, col, 0, 1, symbol)) return true;
-                if (hasFourFrom(row, col, 1, 0, symbol)) return true;
-                if (hasFourFrom(row, col, 1, 1, symbol)) return true;
-                if (hasFourFrom(row, col, 1, -1, symbol)) return true;
+                if (hasFourFrom(row, col, 0, 1, symbol)) {
+                    return true;
+                }
+                if (hasFourFrom(row, col, 1, 0, symbol)) {
+                    return true;
+                }
+                if (hasFourFrom(row, col, 1, 1, symbol)) {
+                    return true;
+                }
+                if (hasFourFrom(row, col, 1, -1, symbol)) {
+                    return true;
+                }
             }
         }
         return false;

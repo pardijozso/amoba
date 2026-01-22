@@ -1,8 +1,9 @@
 package org.example.service;
 
+import java.util.Random;
+
 import org.example.domain.Board;
 import org.example.domain.Move;
-import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,11 +56,11 @@ public class SteppingService {
                     continue;
                 }
 
-                if (board.getCell(rowIndex,colIndex) != '~'){
+                if (board.getCell(rowIndex, colIndex) != '~') {
                     throw new IllegalArgumentException("Ez a mező foglalt");
                 }
 
-                if(!board.isValidMove(rowIndex,colIndex)){
+                if (!board.isValidMove(rowIndex, colIndex)) {
                     throw new IllegalStateException("Érvénytelen lépés!");
                 }
 
@@ -76,7 +77,8 @@ public class SteppingService {
     }
 
     public Move calculateBotMove(Board board) {
-        int row, col;
+        int row;
+        int col;
         int maxRow = board.getRow();
         int maxCol = board.getCol();
 
@@ -84,8 +86,8 @@ public class SteppingService {
             row = random.nextInt(maxRow);
             col = random.nextInt(maxCol);
 
-            if (board.getCell(row, col) == '~' && board.isValidMove(row,col)) {
-                consoleService.print("Bot lépése: " + (char)('A' + col) + (row + 1));
+            if (board.getCell(row, col) == '~' && board.isValidMove(row, col)) {
+                consoleService.print("Bot lépése: " + (char) ('A' + col) + (row + 1));
                 return new Move(row, col);
             }
         }

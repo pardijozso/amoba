@@ -6,8 +6,8 @@ public class Board {
     private final char[][] grid;
 
     public Board(int rows, int cols) {
-        this.row=rows;
-        this.col=cols;
+        this.row = rows;
+        this.col = cols;
         grid = new char[rows][cols];
     }
 
@@ -22,7 +22,7 @@ public class Board {
         return true;
     }
 
-    public boolean isValidMove(int row, int col){
+    public boolean isValidMove(int row, int col) {
         for (int rowDiff = -1; rowDiff <= 1; rowDiff++) {
             for (int colDiff = -1; colDiff <= 1; colDiff++) {
 
@@ -64,6 +64,7 @@ public class Board {
     public char[][] getGrid() {
         return grid;
     }
+
     public char getCell(int row, int col) {
         return grid[row][col];
     }

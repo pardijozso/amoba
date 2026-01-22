@@ -1,8 +1,8 @@
 package org.example.domain;
 
-public class HumanPlayer implements Player{
+public class HumanPlayer implements Player {
     private final String name;
-    private final char symbol= 'X';
+    private final char symbol = 'X';
 
     public HumanPlayer(String name) {
         this.name = name;
@@ -17,7 +17,7 @@ public class HumanPlayer implements Player{
     }
 
     @Override
-    public void makeMove(Board board,Move move){
-        board.placeSymbol(move.getRow(), move.getCol(),this.getSymbol());
+    public void makeMove(Board board, Move move) {
+        board.placeSymbol(move.getRow(), move.getCol(), this.getSymbol());
     }
 }

@@ -1,13 +1,12 @@
 package org.example.init;
 
-
-import org.example.domain.Board;
-import org.example.service.ConsoleService;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import org.example.domain.Board;
+import org.example.service.ConsoleService;
 
 public class FileBoardInit implements BoardInit {
     private final int boardInitType = 2;

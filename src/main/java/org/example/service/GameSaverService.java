@@ -1,12 +1,13 @@
 package org.example.service;
 
-import org.example.domain.Board;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.domain.Board;
+
 
 public class GameSaverService {
     private static final String FILE_NAME = "map.txt";

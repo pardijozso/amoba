@@ -1,9 +1,7 @@
-package org.example.Display;
+package org.example.display;
 
 import org.example.domain.Board;
 import org.example.service.ConsoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BoardDisplayer {
     final ConsoleService consoleService;
@@ -14,9 +12,8 @@ public class BoardDisplayer {
 
 
     public void display(Board board) {
-        int rows = board.getRow();
-        int cols = board.getCol();
-
+        final int rows = board.getRow();
+        final int cols = board.getCol();
         StringBuilder sb = new StringBuilder();
 
         sb.append("   "); // üres hely a sor sorszámának
