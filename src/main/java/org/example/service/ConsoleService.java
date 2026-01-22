@@ -31,4 +31,5 @@ public class ConsoleService {
     public void print(final String message) {
         LOGGER.info(message);
     }
+
 }

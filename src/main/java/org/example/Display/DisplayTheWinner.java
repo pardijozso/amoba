@@ -13,10 +13,25 @@ public class DisplayTheWinner {
 
         if(winner=='X'){
             consoleService.print("Gratulálok nyertél!");
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }else if(winner=='O'){
             consoleService.print("Sajnos vesztettél!");
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }else{
             consoleService.print("Döntetlen!");
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 }

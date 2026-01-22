@@ -38,7 +38,7 @@ public class BoardDisplayer {
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
-            // a szál megszakítását visszaállítjuk
             Thread.currentThread().interrupt();
-        }    }
+        }
+    }
 }

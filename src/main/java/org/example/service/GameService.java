@@ -8,12 +8,14 @@ public class GameService {
     private final SteppingService SteppingService;
     private final GameStateCheckingService checker;
     private final BoardDisplayer displayer;
+    private final HighScoreService highScoreService;
     private boolean gameOver = false;
 
-    public GameService(SteppingService steppingService, GameStateCheckingService checker, BoardDisplayer displayer) {
+    public GameService(SteppingService steppingService, GameStateCheckingService checker, BoardDisplayer displayer,HighScoreService highScoreService) {
         this.SteppingService = steppingService;
         this.checker = checker;
         this.displayer = displayer;
+        this.highScoreService =highScoreService;
     }
 
     private void checkGameOver(Game game, char symbol) {
@@ -33,6 +35,7 @@ public class GameService {
         final BotPlayer bot= game.getBot();
         final Board board= game.getBoard();
 
+        highScoreService.findOrCreatePlayer(player.getName());
         displayer.display(game.getBoard());
 
         while (!gameOver) {
@@ -45,7 +48,11 @@ public class GameService {
                     continue;
                 }
             checkGameOver(game, player.getSymbol());
-            if (gameOver) continue;
+            if (gameOver) {
+                if (game.getWinner()=='X')
+                    highScoreService.addWin(player.getName());
+                continue;
+            }
 
             Move botMove = SteppingService.calculateBotMove(board);
             bot.makeMove(board,botMove);
@@ -58,6 +65,8 @@ public class GameService {
         final HumanPlayer player= game.getPlayer();
         final BotPlayer bot= game.getBot();
         final Board board= game.getBoard();
+
+        highScoreService.findOrCreatePlayer(player.getName());
         displayer.display(game.getBoard());
         while (!gameOver) {
             Move botMove = SteppingService.calculateBotMove(board);
@@ -75,6 +84,9 @@ public class GameService {
                 continue;
             }
             checkGameOver(game, player.getSymbol());
+            if (gameOver && game.getWinner()=='X') {
+                highScoreService.addWin(player.getName());
+            }
         }
     }
 }

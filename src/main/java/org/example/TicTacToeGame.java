@@ -3,6 +3,7 @@ package org.example;
 
 import org.example.Display.BoardDisplayer;
 import org.example.Display.DisplayTheWinner;
+import org.example.database.DatabaseManager;
 import org.example.domain.Board;
 import org.example.domain.BotPlayer;
 import org.example.domain.Game;
@@ -15,9 +16,11 @@ import java.util.Scanner;
 
 public class TicTacToeGame {
     public static void main( String[] args ) {
+        DatabaseManager.initDatabase();
         final Scanner scanner = new Scanner(System.in);
         final ConsoleService consoleService = new ConsoleService(scanner);
         final BoardInitDeciderService BoardDecider = new BoardInitDeciderService(consoleService);
+        final HighScoreService highScoreService= new HighScoreService(consoleService);
         final BoardInit boardInit = BoardDecider.getMapInitInstance();
         final PlayerInit playerInit = new PlayerInit(consoleService);
         final Board board = boardInit.readBoardDetails();
@@ -27,7 +30,7 @@ public class TicTacToeGame {
         final DisplayTheWinner displayTheWinner = new DisplayTheWinner(consoleService);
         final SteppingService steppingService = new SteppingService(consoleService);
         final GameStateCheckingService gameStateCheck = new GameStateCheckingService(board);
-        final GameService gameService = new GameService(steppingService,gameStateCheck,displayer);
+        final GameService gameService = new GameService(steppingService,gameStateCheck,displayer,highScoreService);
         final Game game = new Game(board, player, bot);
 
         if(boardInit.getBoardInitType() == 1){
@@ -36,6 +39,7 @@ public class TicTacToeGame {
             gameService.startGameFromFile(game);
         }
         displayTheWinner.print(game.getWinner());
+        highScoreService.printAll();
         scanner.close();
     }
 }
