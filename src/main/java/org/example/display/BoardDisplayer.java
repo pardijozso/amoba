@@ -4,34 +4,34 @@ import org.example.domain.Board;
 import org.example.service.ConsoleService;
 
 public class BoardDisplayer {
-    final ConsoleService consoleService;
+    private final ConsoleService consoleService;
 
-    public BoardDisplayer(ConsoleService consoleService) {
+    public BoardDisplayer(final ConsoleService consoleService) {
         this.consoleService = consoleService;
     }
 
 
-    public void display(Board board) {
+    public void display(final Board board) {
         final int rows = board.getRow();
         final int cols = board.getCol();
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
 
-        sb.append("   "); // üres hely a sor sorszámának
+        stringBuilder.append("   "); // üres hely a sor sorszámának
         for (int c = 0; c < cols; c++) {
-            sb.append((char) ('A' + c)).append(" ");
+            stringBuilder.append((char) ('A' + c)).append(" ");
         }
-        sb.append("\n");
+        stringBuilder.append("\n");
 
         for (int r = 0; r < rows; r++) {
-            sb.append(r + 1);
-            sb.append(r + 1 < 10 ? "  " : " "); // Szép igazítás, ha 1 számjegyű a sor
+            stringBuilder.append(r + 1);
+            stringBuilder.append(r + 1 < 10 ? "  " : " "); // Szép igazítás, ha 1 számjegyű a sor
 
             for (int c = 0; c < cols; c++) {
-                sb.append(board.getCell(r, c)).append(" ");
+                stringBuilder.append(board.getCell(r, c)).append(" ");
             }
-            sb.append("\n");
+            stringBuilder.append("\n");
         }
-        consoleService.print("\n" + sb.toString());
+        consoleService.print("\n" + stringBuilder.toString());
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {

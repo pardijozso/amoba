@@ -94,8 +94,8 @@
                 <version>3.28.0</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>/rulesets/java/bestpractices.xml</ruleset>
-                        <ruleset>/rulesets/java/codestyle.xml</ruleset>
+                        <ruleset>category/java/bestpractices.xml</ruleset>
+                        <ruleset>category/java/codestyle.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
@@ -107,6 +107,20 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jxr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

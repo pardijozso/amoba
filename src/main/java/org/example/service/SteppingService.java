@@ -4,9 +4,6 @@ import java.util.Random;
 
 import org.example.domain.Board;
 import org.example.domain.Move;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 
 public class SteppingService {
@@ -19,10 +16,7 @@ public class SteppingService {
         this.consoleService = consoleService;
     }
 
-    /**
-     * Bekéri a felhasználó lépését loggerrel
-     */
-    public Move getMoveDetails(Board board) {
+    public Move getMoveDetails(final Board board) {
         int rowIndex = -1;
         int colIndex = -1;
 
@@ -30,20 +24,20 @@ public class SteppingService {
 
         while (!valid) {
             try {
-                String colInput = consoleService.readStringFromConsole(
+                final String colInput = consoleService.readStringFromConsole(
                         "Add meg az oszlopot (A-" + (char) ('A' + board.getCol() - 1) + ") vagy ESC a kilépéshez:");
 
-                if (colInput.equalsIgnoreCase("ESC")) {
+                if ("ESC".equalsIgnoreCase(colInput)) {
                     consoleService.print("Kilépés a játékból...");
                     saver.saveToFile(board);
                     System.exit(0);
                 }
 
                 colIndex = columnLetterToIndex(colInput, board.getCol());
-                String rowInputStr = consoleService.readStringFromConsole(
+                final String rowInputStr = consoleService.readStringFromConsole(
                         "Add meg a sort (1-" + board.getRow() + ") vagy ESC a kilépéshez:");
 
-                if (rowInputStr.equalsIgnoreCase("ESC")) {
+                if ("ESC".equalsIgnoreCase(rowInputStr)) {
                     consoleService.print("Kilépés a játékból...");
                     saver.saveToFile(board);
                     System.exit(0);
@@ -76,11 +70,11 @@ public class SteppingService {
         return new Move(rowIndex, colIndex);
     }
 
-    public Move calculateBotMove(Board board) {
+    public Move calculateBotMove(final Board board) {
         int row;
         int col;
-        int maxRow = board.getRow();
-        int maxCol = board.getCol();
+        final int maxRow = board.getRow();
+        final int maxCol = board.getCol();
 
         while (true) {
             row = random.nextInt(maxRow);
@@ -96,10 +90,10 @@ public class SteppingService {
     /**
      * Betűből 0-index
      */
-    private int columnLetterToIndex(String input, int maxCols) {
-        input = input.toUpperCase();
-        char letter = input.charAt(0);
-        int index = letter - 'A';
+    private int columnLetterToIndex(final String input, final int maxCols) {
+        final String uinput = input.toUpperCase();
+        final char letter = uinput.charAt(0);
+        final int index = letter - 'A';
         if (index < 0 || index >= maxCols) {
             throw new IllegalArgumentException("Érvénytelen oszlop: " + input);
         }

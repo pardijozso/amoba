@@ -3,13 +3,13 @@ package org.example.display;
 import org.example.service.ConsoleService;
 
 public class DisplayTheWinner {
-    final ConsoleService consoleService;
+    private final  ConsoleService consoleService;
 
-    public DisplayTheWinner(ConsoleService consoleService) {
+    public DisplayTheWinner(final ConsoleService consoleService) {
         this.consoleService = consoleService;
     }
 
-    public void print(char winner) {
+    public void print(final char winner) {
 
         if (winner == 'X') {
             consoleService.print("Gratulálok nyertél!");

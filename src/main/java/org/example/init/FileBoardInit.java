@@ -8,12 +8,13 @@ import java.util.List;
 import org.example.domain.Board;
 import org.example.service.ConsoleService;
 
+@SuppressWarnings("PMD.OnlyOneReturn")
 public class FileBoardInit implements BoardInit {
     private final int boardInitType = 2;
     private final ConsoleService consoleService;
     private static final String FILE_NAME = "map.txt"; // fix fájl a resources könyvtárban
 
-    public FileBoardInit(ConsoleService consoleService) {
+    public FileBoardInit(final ConsoleService consoleService) {
         this.consoleService = consoleService;
     }
 
@@ -24,22 +25,22 @@ public class FileBoardInit implements BoardInit {
 
     @Override
     public Board readBoardDetails() {
-        Path path = Path.of(FILE_NAME);
+        final Path path = Path.of(FILE_NAME);
         try {
-            List<String> lines = Files.readAllLines(path);
+            final List<String> lines = Files.readAllLines(path);
 
             if (lines.isEmpty()) {
                 consoleService.print("Nincs mentett játék.");
                 return null;
             }
 
-            int rows = lines.size();
-            int cols = lines.get(0).length();
+            final int rows = lines.size();
+            final int cols = lines.get(0).length();
 
-            Board board = new Board(rows, cols);
+            final Board board = new Board(rows, cols);
 
             for (int r = 0; r < rows; r++) {
-                String row = lines.get(r);
+                final String row = lines.get(r);
                 for (int c = 0; c < cols; c++) {
                     board.setCell(r, c, row.charAt(c));
                 }

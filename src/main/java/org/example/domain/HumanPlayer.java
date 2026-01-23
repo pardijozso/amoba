@@ -4,7 +4,7 @@ public class HumanPlayer implements Player {
     private final String name;
     private final char symbol = 'X';
 
-    public HumanPlayer(String name) {
+    public HumanPlayer(final String name) {
         this.name = name;
     }
 
@@ -17,7 +17,7 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public void makeMove(Board board, Move move) {
+    public void makeMove(final Board board, final Move move) {
         board.placeSymbol(move.getRow(), move.getCol(), this.getSymbol());
     }
 }

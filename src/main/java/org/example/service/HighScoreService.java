@@ -13,21 +13,21 @@ public class HighScoreService {
 
     private final ConsoleService consoleService;
 
-    public HighScoreService(ConsoleService consoleService) {
+    public HighScoreService(final ConsoleService consoleService) {
         this.consoleService = consoleService;
     }
 
-    public void findOrCreatePlayer(String name) {
-        String select = "SELECT games_won FROM highscore WHERE player_name = ?";
-        String insert = "INSERT INTO highscore(player_name, games_won) VALUES(?, 0)";
+    public void findOrCreatePlayer(final String name) {
+        final String select = "SELECT games_won FROM highscore WHERE player_name = ?";
+        final String insert = "INSERT INTO highscore(player_name, games_won) VALUES(?, 0)";
 
         try (Connection conn = DatabaseManager.connect();
-             PreparedStatement ps = conn.prepareStatement(select)) {
+             PreparedStatement preparedStatement = conn.prepareStatement(select)) {
 
-            ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
+            preparedStatement.setString(1, name);
+            final ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (!rs.next()) {
+            if (!resultSet.next()) {
                 try (PreparedStatement ins = conn.prepareStatement(insert)) {
                     ins.setString(1, name);
                     ins.executeUpdate();
@@ -36,42 +36,42 @@ public class HighScoreService {
 
         } catch (SQLException e) {
             consoleService.print("Adatbázis hiba történt.");
-            e.printStackTrace();
+            consoleService.print(String.valueOf(e));
         }
     }
 
-    public void addWin(String name) {
-        String update = "UPDATE highscore SET games_won = games_won + 1 WHERE player_name = ?";
+    public void addWin(final String name) {
+        final String update = "UPDATE highscore SET games_won = games_won + 1 WHERE player_name = ?";
 
         try (Connection conn = DatabaseManager.connect();
-             PreparedStatement ps = conn.prepareStatement(update)) {
+             PreparedStatement preparedStatement = conn.prepareStatement(update)) {
 
-            ps.setString(1, name);
-            ps.executeUpdate();
+            preparedStatement.setString(1, name);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             consoleService.print("Nem sikerült növelni a győzelmek számát.");
-            e.printStackTrace();
+            consoleService.print(String.valueOf(e));
         }
     }
 
     public void printAll() {
-        String sql = "SELECT player_name, games_won FROM highscore ORDER BY games_won DESC";
+        final String sql = "SELECT player_name, games_won FROM highscore ORDER BY games_won DESC";
 
         try (Connection conn = DatabaseManager.connect();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             ResultSet resultSet = stmt.executeQuery(sql)) {
 
             consoleService.print("=== HIGHSCORE ===");
-            while (rs.next()) {
+            while (resultSet.next()) {
                 consoleService.print(
-                        rs.getString("player_name") + " - " + rs.getInt("games_won")
+                        resultSet.getString("player_name") + " - " + resultSet.getInt("games_won")
                 );
             }
 
         } catch (SQLException e) {
             consoleService.print("Nem sikerült lekérni a highscore listát.");
-            e.printStackTrace();
+            consoleService.print(String.valueOf(e));
         }
     }
 }

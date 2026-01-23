@@ -1,20 +1,21 @@
 package org.example.domain;
 
+@SuppressWarnings("PMD.OnlyOneReturn")
 public class Board {
     private final int row;
     private final int col;
     private final char[][] grid;
 
-    public Board(int rows, int cols) {
+    public Board(final int rows, final int cols) {
         this.row = rows;
         this.col = cols;
         grid = new char[rows][cols];
     }
 
     public boolean isBoardFull() {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                if (grid[i][j] == '~') {
+        for (final char[] chars : grid) {
+            for (final char aChar : chars) {
+                if (aChar == '~') {
                     return false;
                 }
             }
@@ -22,7 +23,7 @@ public class Board {
         return true;
     }
 
-    public boolean isValidMove(int row, int col) {
+    public boolean isValidMove(final int row, final int col) {
         for (int rowDiff = -1; rowDiff <= 1; rowDiff++) {
             for (int colDiff = -1; colDiff <= 1; colDiff++) {
 
@@ -30,8 +31,8 @@ public class Board {
                     continue;
                 }
 
-                int neighborRow = row + rowDiff;
-                int neighborCol = col + colDiff;
+                final int neighborRow = row + rowDiff;
+                final int neighborCol = col + colDiff;
 
                 if (neighborRow >= 0 && neighborRow < this.row &&
                         neighborCol >= 0 && neighborCol < this.col) {
@@ -45,11 +46,11 @@ public class Board {
         return false;
     }
 
-    public void placeSymbol(int row, int col, char symbol) {
+    public void placeSymbol(final int row, final int col, final char symbol) {
         grid[row][col] = symbol;
     }
 
-    public void setCell(int row, int col, char symbol) {
+    public void setCell(final int row, final int col, final char symbol) {
         grid[row][col] = symbol;
     }
 
@@ -61,11 +62,7 @@ public class Board {
         return col;
     }
 
-    public char[][] getGrid() {
-        return grid;
-    }
-
-    public char getCell(int row, int col) {
+    public char getCell(final int row, final int col) {
         return grid[row][col];
     }
 }

@@ -3,8 +3,8 @@ package org.example.init;
 import org.example.domain.Board;
 
 public interface BoardInit {
-    public Board readBoardDetails();
+     Board readBoardDetails();
 
-    public int getBoardInitType();
+     int getBoardInitType();
 
 }

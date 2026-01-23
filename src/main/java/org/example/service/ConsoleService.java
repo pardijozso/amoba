@@ -14,7 +14,7 @@ public class ConsoleService {
         this.scanner = scanner;
     }
 
-    public int readIntFromConsole(String message) {
+    public int readIntFromConsole(final String message) {
         int value = 0;
         boolean valid = false;
 

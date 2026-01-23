@@ -8,7 +8,7 @@ import org.example.domain.Game;
 import org.example.domain.HumanPlayer;
 import org.example.domain.Move;
 
-
+@SuppressWarnings("PMD.SystemPrintln")
 public class GameService {
     private final SteppingService steppingService;
     private final GameStateCheckingService checker;
@@ -16,16 +16,16 @@ public class GameService {
     private final HighScoreService highScoreService;
     private boolean gameOver = false;
 
-    public GameService(SteppingService steppingService, GameStateCheckingService checker,
-                       BoardDisplayer displayer, HighScoreService highScoreService) {
+    public GameService(final SteppingService steppingService, final GameStateCheckingService checker,
+                       final BoardDisplayer displayer, final HighScoreService highScoreService) {
         this.steppingService = steppingService;
         this.checker = checker;
         this.displayer = displayer;
         this.highScoreService = highScoreService;
     }
 
-    private void checkGameOver(Game game, char symbol) {
-        Board board = game.getBoard();
+    private void checkGameOver(final Game game, final char symbol) {
+        final Board board = game.getBoard();
 
         if (checker.hasFourInARow(symbol)) {
             game.setWinner(symbol);
@@ -35,7 +35,7 @@ public class GameService {
         }
     }
 
-    public void startGameFromFile(Game game) {
+    public void startGameFromFile(final Game game) {
         final HumanPlayer player = game.getPlayer();
         final BotPlayer bot = game.getBot();
         final Board board = game.getBoard();
@@ -45,7 +45,7 @@ public class GameService {
 
         while (!gameOver) {
             try {
-                Move playerMove = steppingService.getMoveDetails(board);
+                final Move playerMove = steppingService.getMoveDetails(board);
                 player.makeMove(board, playerMove);
                 displayer.display(game.getBoard());
             } catch (IllegalStateException e) {
@@ -60,14 +60,14 @@ public class GameService {
                 continue;
             }
 
-            Move botMove = steppingService.calculateBotMove(board);
+            final Move botMove = steppingService.calculateBotMove(board);
             bot.makeMove(board, botMove);
             checkGameOver(game, bot.getSymbol());
             displayer.display(game.getBoard());
         }
     }
 
-    public void startNewGame(Game game) {
+    public void startNewGame(final Game game) {
         final HumanPlayer player = game.getPlayer();
         final BotPlayer bot = game.getBot();
         final Board board = game.getBoard();
@@ -75,7 +75,7 @@ public class GameService {
         highScoreService.findOrCreatePlayer(player.getName());
         displayer.display(game.getBoard());
         while (!gameOver) {
-            Move botMove = steppingService.calculateBotMove(board);
+            final Move botMove = steppingService.calculateBotMove(board);
             bot.makeMove(board, botMove);
             checkGameOver(game, bot.getSymbol());
             displayer.display(game.getBoard());
@@ -84,7 +84,7 @@ public class GameService {
             }
 
             try {
-                Move playerMove = steppingService.getMoveDetails(board);
+                final Move playerMove = steppingService.getMoveDetails(board);
                 player.makeMove(board, playerMove);
                 displayer.display(game.getBoard());
             } catch (IllegalStateException e) {

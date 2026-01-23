@@ -17,7 +17,7 @@ public class BotPlayer implements Player {
     }
 
     @Override
-    public void makeMove(Board board, Move move) {
+    public void makeMove(final Board board, final Move move) {
         board.placeSymbol(move.getRow(), move.getCol(), this.getSymbol());
     }
 }

@@ -7,28 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.domain.Board;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-
+@SuppressWarnings("PMD.AtLeastOneConstructor")
 public class GameSaverService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameSaverService.class);
     private static final String FILE_NAME = "map.txt";
 
-    public void saveToFile(Board board) {
+    public void saveToFile(final Board board) {
         try {
-            List<String> lines = new ArrayList<>();
+            final List<String> lines = new ArrayList<>();
 
             for (int r = 0; r < board.getRow(); r++) {
-                StringBuilder sb = new StringBuilder();
+                final StringBuilder stringBuilder = new StringBuilder();
                 for (int c = 0; c < board.getCol(); c++) {
-                    sb.append(board.getCell(r, c));
+                    stringBuilder.append(board.getCell(r, c));
                 }
-                lines.add(sb.toString());
+                lines.add(stringBuilder.toString());
             }
 
             Files.write(Path.of(FILE_NAME), lines);
-            System.out.println("Játék mentve: " + FILE_NAME);
+            LOGGER.info("Játék mentve: {}", FILE_NAME);
 
         } catch (IOException e) {
-            System.out.println("Hiba a mentés során: " + e.getMessage());
+            LOGGER.error("Hiba a mentés során", e);
         }
     }
 }

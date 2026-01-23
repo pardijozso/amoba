@@ -1,5 +1,6 @@
 package org.example.domain;
 
+@SuppressWarnings("PMD.ShortClassName")
 public class Game {
     private final Board board;
     private final HumanPlayer humanPlayer;
@@ -7,7 +8,7 @@ public class Game {
     private char winner = 'D';
 
 
-    public Game(Board board, HumanPlayer humanPlayer, BotPlayer bot) {
+    public Game(final Board board, final HumanPlayer humanPlayer, final BotPlayer bot) {
         this.board = board;
         this.humanPlayer = humanPlayer;
         this.bot = bot;
@@ -29,7 +30,7 @@ public class Game {
         return winner;
     }
 
-    public void setWinner(char winner) {
+    public void setWinner(final char winner) {
         this.winner = winner;
     }
 }

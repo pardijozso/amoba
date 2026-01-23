@@ -1,5 +1,6 @@
 package org.example;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.example.database.DatabaseManager;
@@ -22,11 +23,11 @@ import org.example.service.SteppingService;
 public class TicTacToeGame {
     public static void main(String[] args) {
         DatabaseManager.initDatabase();
-        final Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
         final ConsoleService consoleService = new ConsoleService(scanner);
-        final BoardInitDeciderService BoardDecider = new BoardInitDeciderService(consoleService);
+        final BoardInitDeciderService boardDecider = new BoardInitDeciderService(consoleService);
         final HighScoreService highScoreService = new HighScoreService(consoleService);
-        final BoardInit boardInit = BoardDecider.getMapInitInstance();
+        final BoardInit boardInit = boardDecider.getMapInitInstance();
         final PlayerInit playerInit = new PlayerInit(consoleService);
         final Board board = boardInit.readBoardDetails();
         final HumanPlayer player = playerInit.readHumanPlayer();
