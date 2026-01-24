@@ -12,7 +12,7 @@ public class PlayerInit {
     }
 
     public HumanPlayer readHumanPlayer() {
-        return new HumanPlayer(consoleService.readStringFromConsole("Please provide your name: "));
+        return new HumanPlayer(consoleService.readStringFromConsole("Add meg a neved: "));
     }
 
     public BotPlayer prepareBotPlayer() {

@@ -12,6 +12,7 @@ public class HumanPlayer implements Player {
         return name;
     }
 
+    @Override
     public char getSymbol() {
         return symbol;
     }

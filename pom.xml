@@ -17,7 +17,7 @@
       <maven.compiler.target>21</maven.compiler.target>
       <maven-checkstyle.version>3.6.0</maven-checkstyle.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <junit.version>5.13.4</junit.version>
+      <junit.version>5.10.2</junit.version>
       <mockito-junit.version>5.20.0</mockito-junit.version>
       <slf4j.version>2.0.9</slf4j.version>
       <logback.version>1.5.13</logback.version>
@@ -39,8 +39,8 @@
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -120,7 +120,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

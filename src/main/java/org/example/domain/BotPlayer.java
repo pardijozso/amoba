@@ -12,6 +12,7 @@ public class BotPlayer implements Player {
         return name;
     }
 
+    @Override
     public char getSymbol() {
         return symbol;
     }
